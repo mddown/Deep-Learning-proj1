@@ -16,6 +16,7 @@ Our approach was to use the baseline repo from [here](www.google.com) and make s
 
 # How to Use this repo:
 ### Getting Started
+Clone repo
 
 Download dataset and related utilities:
 ```bash
