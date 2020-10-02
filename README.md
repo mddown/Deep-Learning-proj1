@@ -2,12 +2,12 @@
 For Deep Learning Class - Project 1
 Gene Eagle, John Kent and Matt Downing
 
-# Inrtoduction: What is Continual Learning?
+# Introduction: What is Continual Learning?
 Continual learning is a sub-topic of AI focused on techniques to enable a machine to learn adaptively when new inputs are presented over time. Traditional machine learning tasks have focused on making a machine learn by training it on a specific set of data inputs focusing on narrow task domains. If a new class or instance presents itself in the future, then the entire model needs to be completely re-trained. This is not practical in most real-world scenarios where an autonomous agent is acting in real time.
 
 Enabling an agent to re-use and retain knowledge that it has previously learned without having to completely re-train the model from scratch is difficult. This is a hard problem to solve due to catastrophic failure. Catastrophic failure is when a model completely forgets prior learnings when trying to gradually update its memory, due to the difference between the data distributions of the batches.
 
-# The Apprach Used
+# The Approach Used
 Experience Replay: store previously encountered examples and revisit them when learning something new.
 
 For every incoming batch (after the first batch) we need to retrieve a different batch from memory, combine it with the current batch and then update the memory with this new batch combination. 
