@@ -1,15 +1,12 @@
 # Deep-Learning-proj1
 For Deep Learning Class - Project 1
 
-Note: Some of this readme and code has been taken from the official starting repository for the **CVPR 2020 CLVision 
-challenge:** https://github.com/vlomonaco/cvpr_clvision_challenge
-
 # Inrtoduction: What is Continual Learning?
 Continual Learning is this....
 This is why it is cool etc.
 
-# Our Apprach to Solve this Problem
-Our approach was to use the baseline repo from [here](www.google.com) and make some modifications. These modifications included
+# The Apprach Used
+Our approach was to use...explain what approach was used and why.
 - this
 - and this
 - and this
@@ -18,7 +15,7 @@ Our approach was to use the baseline repo from [here](www.google.com) and make s
 ### Getting Started
 Clone repo
 
-Download dataset and related utilities:
+Download the dataset and related utilities:
 ```bash
 sh fetch_data_and_setup.sh
 ```
@@ -27,16 +24,26 @@ Setup the conda environment:
 conda env create -f environment.yml
 conda activate clvision-challenge
 ```
-Make your first submission:
-```bash
+
+
+### Reproduce the final results for all tracks
+
+```
 sh create_submission.sh
 ```
-Instrctions on how to get the code up and running on your system go here.
 
-The simplest usage is as follow:
-```bash
-python naive_baseline.py --scenario="ni" --sub_dir="ni"
-```
+The parameters for the final submissions:
+
+- `config/final/nc.yml`
+- `config/final/ni.yml`
+- `config/final/nic.yml`
+
+The detailed explanation of these parameters can be found in `general_main.py`
+
+### Acknowledgement
+
+The starting code of this repository is from the official starting [repository](https://github.com/vlomonaco/cvpr_clvision_challenge).
+And from Zheda Mai(University of Toronto), Hyunwoo Kim(LG Sciencepark), Jihwan Jeong (University of Toronto), Scott Sanner (University of Toronto, Vector Institute) which can be found [here](https://github.com/RaptorMai/CVPR20_CLVision_challenge).
 
 ### Project Structure
 This repository is structured as follows:
