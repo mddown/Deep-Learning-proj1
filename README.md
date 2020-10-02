@@ -1,5 +1,6 @@
 # Deep-Learning-proj1
 For Deep Learning Class - Project 1
+Gene Eagle, John Kent and Matt Downing
 
 # Inrtoduction: What is Continual Learning?
 Continual learning is a sub-topic of AI focused on techniques to enable a machine to learn adaptively when new inputs are presented over time. Traditional machine learning tasks have focused on making a machine learn by training it on a specific set of data inputs focusing on narrow task domains. If a new class or instance presents itself in the future, then the entire model needs to be completely re-trained. This is not practical in most real-world scenarios where an autonomous agent is acting in real time.
