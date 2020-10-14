@@ -1,19 +1,111 @@
-# Deep-Learning-proj1
+# Deep Learning Project 1
 For Deep Learning Class - Project 1
 Gene Eagle, John Kent and Matt Downing
 
-# Introduction: What is Continual Learning?
+## Introduction: What is Continual Learning?
 Continual learning is a sub-topic of AI focused on techniques to enable a machine to learn adaptively when new inputs are presented over time. Traditional machine learning tasks have focused on making a machine learn by training it on a specific set of data inputs focusing on narrow task domains. If a new class or instance presents itself in the future, then the entire model needs to be completely re-trained. This is not practical in most real-world scenarios where an autonomous agent is acting in real time.
 
 Enabling an agent to re-use and retain knowledge that it has previously learned without having to completely re-train the model from scratch is difficult. This is a hard problem to solve due to catastrophic failure. Catastrophic failure is when a model completely forgets prior learnings when trying to gradually update its memory, due to the difference between the data distributions of the batches.
 
-# The Approach Used
-Experience Replay: store previously encountered examples and revisit them when learning something new.
+## The Approach Used
+Batch level Experience Replay with Review: 
 
-For every incoming batch (after the first batch) we need to retrieve a different batch from memory, combine it with the current batch and then update the memory with this new batch combination. 
+At a very high level Experience Replay stores previously encountered examples and revisits them when learning something new.
+
+Experience Replay stores a subset of the samples from the past batches in a buffer. When training a current batch, it concatinates the incoming batch with another batch of samples retreived from the buffer. Then, Stochastic Gradient Descent update step is performed with this new combined batch.  
+
+In this exact case for every epoch a random batch is taken from memory with a certain replay size (this is important!, our experiments play with this replay size), concatenate it with the current batch, conduct SGD.  
+
+Review part: after training all the batches a review batch is randomly taken from memory and SGD is conducted again to perform a final update to the weights.  
+
+## ResNet18 vs. DenseNet161_Freeze
+
+The first experiment we ran was to compare the ResNet18 model to the DenseNet161_Freeze model. The results of this experiment led us to use the DenseNet161_Freeze model as our baseline model for future experiments as DenseNet161_Freeze model was more accurate for all three scenarios.  
+
+**Explain what DenseNet161_Freeze is here:** 
+DenseNEt161_Freeze is based on the DenseNet161 model (pre-trained on ImageNet) but has the first 2 layers frozen. By freezing the first 2 layers the training time in decreased while also ensuring that the model can still extract features from the images.
+
+### Results below:
+
+**New Classes:**  
+
+| Architecture       | Accuracy |
+|--------------------|----------|
+| ResNet18           | 95%      |
+| DenseNet161_Freeze | 99%      | 
+
+<br/>
+
+**New Instances:** 
+
+| Architecture       | Accuracy |
+|--------------------|----------|
+| ResNet18           | 80%      |
+| DenseNet161_Freeze | 94%      | 
+
+<br/>
+
+**New Instances and Classes:**  
+
+| Architecture       | Accuracy |
+|--------------------|----------|
+| ResNet18           | 89%      |
+| DenseNet161_Freeze | 94%      |
 
 
-# How to Use this repo:
+## Our Experiments
+Our experiments focused on playing with the number of replay examples that are randomly drawn from the memory. We wanted to see if increasing the replay size (concatinate with the current batch) would increase the models ability to not forget what it has learned previsouly.  
+
+We found that increasing the size of the replay samples did not have an effect on accurracy performance.
+
+## Scenario 1 - New Classes 
+The New Classes scenario did not use the replay memory methodology. A new independent model is assigned to each batch.  
+50 different classes are split into 9 batches. The label is provided during this scenario. Inference outweighs transfer when sharing 1 model across all batches. So instead a new fresh model is assigned to each batch.
+
+
+| Architecture       | Accuracy |
+|--------------------|----------|
+| DenseNet161_Freeze | 99%      | 
+
+<br/>
+
+## Scenario 2 - New Instances  
+New instances are in each batch?
+In the New Instances scenario there are 8 trainig batches each containing the same 50 classes. No batch labels are provided. 
+
+
+| Architecture       | Replay Samples | Accuracy |
+|--------------------|-------------|----------|
+| DenseNet161_Freeze | 5,000        | 94%      |
+| DenseNet161_Freeze | 7,500       | 88%      |
+| DenseNet161_Freeze | 1,000???           | 94%      |
+| DenseNet161_Freeze | 12,500    | 90%      |
+<br/>
+
+## Scenario 3 - New Instances and Classes 
+391 training batches each containing 300 images of a single class.
+
+| Architecture       | Replay Samples | Accuracy |
+|--------------------|-------------|----------|
+| DenseNet161_Freeze | 5,000        | 94%      |
+| DenseNet161_Freeze | 7,500        | 95%      |
+| DenseNet161_Freeze | 1,000???           | 94%      |
+| DenseNet161_Freeze | 12,500        | 94%      |
+
+<br/>
+
+## Discussion
+Things to talk about:  
+-  original competition (which our work is based on) looked at multiple metrics (accuracy, run duration, memory and disk use) but that we're only looking at accuracy.
+
+<br/>
+
+### Acknowledgement
+
+The starting code of this repository is from the official starting [repository](https://github.com/vlomonaco/cvpr_clvision_challenge).
+And from Zheda Mai(University of Toronto), Hyunwoo Kim(LG Sciencepark), Jihwan Jeong (University of Toronto), Scott Sanner (University of Toronto, Vector Institute) which can be found [here](https://github.com/RaptorMai/CVPR20_CLVision_challenge).
+
+## How to Use this repo:
 ### Getting Started
 Clone repo
 
@@ -26,26 +118,6 @@ Setup the conda environment:
 conda env create -f environment.yml
 conda activate clvision-challenge
 ```
-
-
-### Reproduce the final results for all tracks
-
-```
-sh create_submission.sh
-```
-
-The parameters for the final submissions:
-
-- `config/final/nc.yml`
-- `config/final/ni.yml`
-- `config/final/nic.yml`
-
-The detailed explanation of these parameters can be found in `general_main.py`
-
-### Acknowledgement
-
-The starting code of this repository is from the official starting [repository](https://github.com/vlomonaco/cvpr_clvision_challenge).
-And from Zheda Mai(University of Toronto), Hyunwoo Kim(LG Sciencepark), Jihwan Jeong (University of Toronto), Scott Sanner (University of Toronto, Vector Institute) which can be found [here](https://github.com/RaptorMai/CVPR20_CLVision_challenge).
 
 ### Project Structure
 This repository is structured as follows:
@@ -66,4 +138,5 @@ This script is based on PyTorch but you can use any framework you want. CORe50 u
 - [`LICENSE`](LICENSE): Standard Creative Commons Attribution 4.0 International License.
 - [`README.md`](README.md): This instructions file.
 
-Your `submission.zip` file is ready to be submitted on the [Codalab platform](https://competitions.codalab.org/competitions/23317)!
+## How to run this in Colab section:
+The way all projects must be structured is that you publish all files in GitHub and then include in your Readme.md file instructions on how someone will run your code in colab. If you assume specific dir structure with respect to input data files etc. you spell it out in Readme.md. For those submitting python code in the form of notebooks, ensure that you commit the notebook with results in git before submitting the github url.
