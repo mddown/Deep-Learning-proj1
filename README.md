@@ -2,6 +2,10 @@
 For Deep Learning Class - Project 1  
 Gene Eagle, John Kent and Matt Downing
 
+## Table of Contents
+1. [Introduction](#Introduction:-What-is-Continual-Learning?)
+2. [Approach Used](#The-Approach-Used)
+
 ## Introduction: What is Continual Learning?
 Continual learning is a sub-topic of AI focused on techniques to enable a machine to learn adaptively when new inputs are presented over time. Traditional machine learning tasks have focused on making a machine learn by training it on a specific set of data inputs focusing on narrow task domains. If a new class or instance presents itself in the future, then the entire model needs to be completely re-trained. This is not practical in most real-world scenarios where an autonomous agent is acting in real time.
 
@@ -35,7 +39,7 @@ Training Procedure Algorithm Overview:
 
 This type of CNN architecture contains shorter connections between layers close to the input and close to the output. One important aspect is that DenseNet architectures are good at alleviating the vanashing gradient problem while also reducing the total number of parameters required compared to ResNets. This is accomplished by establishing direct connections from any layer to all subsequent layers - For each layer the feature maps of all preceding layers are used as inputs, and its own feature maps are used as inputs to all subsequent layers. This creates a high level of feature sharing between the layers.  
 
-**DenseNet161_Freeze:**
+**DenseNet161_Freeze:**  
 DenseNEt161_Freeze is based on the DenseNet161 model (pre-trained on ImageNet) but has the first 2 dense blocks frozen. By freezing the first 2 dense blocks the training time is decreased while also ensuring that the model can still extract features from the images.  
 
 ## ResNet18 vs. DenseNet161_Freeze
@@ -44,7 +48,7 @@ The first experiment we ran was to compare the ResNet18 model to the DenseNet161
 
 ### Results below:
 
-# Accuracy refers to???
+# Accuracy refers to Validation Acc???
 
 **New Classes:**  
 
@@ -74,7 +78,7 @@ The first experiment we ran was to compare the ResNet18 model to the DenseNet161
 ## Our Experiments
 Our experiments (using the DenseNet161_Freeze architecture) focused on playing with the number of replay examples that are randomly drawn from the memory. We wanted to see if increasing the replay size (concatinated with the current batch) would increase the models ability to not forget what it has learned previsouly.  
 
-We found that increasing the size of the replay samples did not have an effect on accurracy performance.
+**We found that increasing the size of the replay samples did not have an effect on accurracy performance.**
 
 Results Below:  
 
