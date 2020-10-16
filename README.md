@@ -33,7 +33,9 @@ Training Procedure Overview:
 The first experiment we ran was to compare the ResNet18 model to the DenseNet161_Freeze model. The results of this experiment led us to use the DenseNet161_Freeze model as our baseline model for future experiments as the DenseNet161_Freeze model was more accurate for all three scenarios.  
 
 **What is the DenseNet161_Freeze architecture?**  
-[DenseNets](https://arxiv.org/pdf/1608.06993.pdf) (Dense Convolutional Network) are comprised of dense blocks and transitional layers between each block. Each unit in a dense block is connected to every other unit before it and after it. Between these dense blocks a Transitional layer exists which downsamples the features passing through it.
+[DenseNets](https://arxiv.org/pdf/1608.06993.pdf) (Dense Convolutional Network) are comprised of dense blocks and transitional layers between each block. Each unit in a dense block is connected to every other unit before it and after it. Between these dense blocks a Transitional layer exists which downsamples the features passing through it.  
+
+![image](https://github.com/mddown/Deep-Learning-proj1/blob/master/pics/denseNet_arch.JPG)
 
 This type of CNN architecture contains shorter connections between layers close to the input and close to the output. One important aspect is that DenseNet architectures are good at alleviating the vanashing gradient problem while also reducing the total number of parameters required compared to ResNets. This is accomplished by establishing direct connections from any layer to all subsequent layers - For each layer the feature maps of all preceding layers are used as inputs, and its own feature maps are used as inputs to all subsequent layers. This creates a high level of feature sharing between the layers.  
 
