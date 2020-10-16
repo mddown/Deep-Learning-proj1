@@ -10,20 +10,34 @@ Enabling an agent to re-use and retain knowledge that it has previously learned 
 ## The Approach Used
 Batch level Experience Replay with Review: 
 
+Experience Replay:  
 At a very high level Experience Replay stores previously encountered examples and revisits them when learning something new.
 
-Experience Replay stores a subset of the samples from the past batches in a buffer. When training a current batch, it concatinates the incoming batch with another batch of samples retreived from the buffer. Then, Stochastic Gradient Descent update step is performed with this new combined batch.  
+Typical implementations of Experience Replay store a subset of the samples from a past mini-batche in a buffer. When training the current mini-batch, it concatinates this current mini-batch with another mini-batch of samples retreived from the memory buffer. Then, a SGD update step is performed with this new combined batch.
 
-In this exact case for every epoch a random batch is taken from memory with a certain replay size (this is important!, our experiments play with this replay size), concatenate it with the current batch, conduct SGD.  
+However, the approach used here differs in two ways: 
+- samples are concatinated at the batch level, not the mini-batch level
+    - this reduces the number of retreival and update steps required
+- a review step is added before the final testing to remind the model of past learnings
 
-Review part: after training all the batches a review batch is randomly taken from memory and SGD is conducted again to perform a final update to the weights.  
+ In this exact case for every epoch a random batch is taken from memory with a certain replay size (this is important!, our experiments play with this replay size), concatenate it with the current batch, conduct SGD.  
+
+Review part: after training all the batches a review batch is randomly taken from memory and SGD is conducted again to perform a final update to the weights.
+
+Training Procedure Overview:  
+
+![image](./pics/psuedo_code.jpg)
 
 ## ResNet18 vs. DenseNet161_Freeze
 
-The first experiment we ran was to compare the ResNet18 model to the DenseNet161_Freeze model. The results of this experiment led us to use the DenseNet161_Freeze model as our baseline model for future experiments as DenseNet161_Freeze model was more accurate for all three scenarios.  
+The first experiment we ran was to compare the ResNet18 model to the DenseNet161_Freeze model. The results of this experiment led us to use the DenseNet161_Freeze model as our baseline model for future experiments as the DenseNet161_Freeze model was more accurate for all three scenarios.  
 
-**Explain what DenseNet161_Freeze is here:** 
-DenseNEt161_Freeze is based on the DenseNet161 model (pre-trained on ImageNet) but has the first 2 layers frozen. By freezing the first 2 layers the training time in decreased while also ensuring that the model can still extract features from the images.
+**What is the DenseNet161_Freeze architecture?**  
+[DenseNets](https://arxiv.org/pdf/1608.06993.pdf) (Dense Convolutional Network) are comprised of dense blocks and transitional layers between each block. Each unit in a dense block is connected to every other unit before it and after it. Between these dense blocks a Transitional layer exists which downsamples the features passing through it.
+
+This type of CNN architecture contains shorter connections between layers close to the input and close to the output. One important aspect is that DenseNet architectures are good at alleviating the vanashing gradient problem while also reducing the total number of parameters required compared to ResNets. This is accomplished by establishing direct connections from any layer to all subsequent layers - For each layer the feature maps of all preceding layers are used as inputs, and its own feature maps are used as inputs to all subsequent layers. This creates a high level of feature sharing between the layers.  
+
+DenseNEt161_Freeze is based on the DenseNet161 model (pre-trained on ImageNet) but has the first 2 dense blocks frozen. By freezing the first 2 dense blocks the training time is decreased while also ensuring that the model can still extract features from the images.
 
 ### Results below:
 
