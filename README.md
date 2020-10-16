@@ -36,7 +36,7 @@ Training Procedure Algorithm Overview:
 
 ![image](https://github.com/mddown/Deep-Learning-proj1/blob/master/pics/psuedo_code.JPG)  
 
-**CNN Architecture Utilized:**   
+## CNN Architecture Utilized   
 **DenseNet**  
 [DenseNets](https://arxiv.org/pdf/1608.06993.pdf) (Dense Convolutional Network) are comprised of dense blocks and transitional layers between each block. Each unit in a dense block is connected to every other unit before it and after it. Between these dense blocks a Transitional layer exists which downsamples the features passing through it.  
 
