@@ -26,7 +26,7 @@ Review part: after training all the batches a review batch is randomly taken fro
 
 Training Procedure Overview:  
 
-![image](./pics/psuedo_code.jpg)
+![image](https://github.com/mddown/Deep-Learning-proj1/blob/master/pics/psuedo_code.JPG)
 
 ## ResNet18 vs. DenseNet161_Freeze
 
