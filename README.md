@@ -3,10 +3,14 @@ For Deep Learning Class - Project 1
 Gene Eagle, John Kent and Matt Downing
 
 ## Table of Contents
-1. [Introduction](#Introduction:-What-is-Continual-Learning?)
+1. [Introduction](#Introduction)
 2. [Approach Used](#The-Approach-Used)
+3. [CNN Architecture Utilized](#CNN-Architecture-Utilized)
+4. [Our Experiments](#Our-Experiments)
+5. [How to Use this repo](#How-to-Use-this-repo)
 
-## Introduction: What is Continual Learning?
+## Introduction  
+### What is Continual Learning?  
 Continual learning is a sub-topic of AI focused on techniques to enable a machine to learn adaptively when new inputs are presented over time. Traditional machine learning tasks have focused on making a machine learn by training it on a specific set of data inputs focusing on narrow task domains. If a new class or instance presents itself in the future, then the entire model needs to be completely re-trained. This is not practical in most real-world scenarios where an autonomous agent is acting in real time.
 
 Enabling an agent to re-use and retain knowledge that it has previously learned without having to completely re-train the model from scratch is difficult. This is a hard problem to solve due to catastrophic failure. Catastrophic failure is when a model completely forgets prior learnings when trying to gradually update its memory, due to the difference between the data distributions of the batches.
@@ -32,7 +36,8 @@ Training Procedure Algorithm Overview:
 
 ![image](https://github.com/mddown/Deep-Learning-proj1/blob/master/pics/psuedo_code.JPG)  
 
-**CNN Architecture Utilized: DenseNet**  
+**CNN Architecture Utilized:**   
+**DenseNet**  
 [DenseNets](https://arxiv.org/pdf/1608.06993.pdf) (Dense Convolutional Network) are comprised of dense blocks and transitional layers between each block. Each unit in a dense block is connected to every other unit before it and after it. Between these dense blocks a Transitional layer exists which downsamples the features passing through it.  
 
 ![image](https://github.com/mddown/Deep-Learning-proj1/blob/master/pics/denseNet_arch.JPG)
@@ -42,7 +47,7 @@ This type of CNN architecture contains shorter connections between layers close 
 **DenseNet161_Freeze:**  
 DenseNEt161_Freeze is based on the DenseNet161 model (pre-trained on ImageNet) but has the first 2 dense blocks frozen. By freezing the first 2 dense blocks the training time is decreased while also ensuring that the model can still extract features from the images.  
 
-## ResNet18 vs. DenseNet161_Freeze
+## ResNet18 vs DenseNet161_Freeze
 
 The first experiment we ran was to compare the ResNet18 model to the DenseNet161_Freeze model. The results of this experiment led us to use the DenseNet161_Freeze model as our baseline model for future experiments as the DenseNet161_Freeze model was more accurate for all three scenarios.  
 
@@ -127,7 +132,7 @@ Things to talk about:
 The starting code of this repository is from the official starting [repository](https://github.com/vlomonaco/cvpr_clvision_challenge).
 And from Zheda Mai(University of Toronto), Hyunwoo Kim(LG Sciencepark), Jihwan Jeong (University of Toronto), Scott Sanner (University of Toronto, Vector Institute) which can be found [here](https://github.com/RaptorMai/CVPR20_CLVision_challenge).
 
-## How to Use this repo:
+## How to Use this repo
 ### Getting Started
 Clone repo
 
