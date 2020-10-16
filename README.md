@@ -1,5 +1,5 @@
 # Deep Learning Project 1
-For Deep Learning Class - Project 1
+For Deep Learning Class - Project 1  
 Gene Eagle, John Kent and Matt Downing
 
 ## Introduction: What is Continual Learning?
@@ -24,24 +24,27 @@ However, the approach used here differs in two ways:
 
 Review part: after training all the batches a review batch is randomly taken from memory and SGD is conducted again to perform a final update to the weights.
 
-Training Procedure Overview:  
+Training Procedure Algorithm Overview:  
 
-![image](https://github.com/mddown/Deep-Learning-proj1/blob/master/pics/psuedo_code.JPG)
+![image](https://github.com/mddown/Deep-Learning-proj1/blob/master/pics/psuedo_code.JPG)  
 
-## ResNet18 vs. DenseNet161_Freeze
-
-The first experiment we ran was to compare the ResNet18 model to the DenseNet161_Freeze model. The results of this experiment led us to use the DenseNet161_Freeze model as our baseline model for future experiments as the DenseNet161_Freeze model was more accurate for all three scenarios.  
-
-**What is the DenseNet161_Freeze architecture?**  
+**CNN Architecture Utilized: DenseNet**  
 [DenseNets](https://arxiv.org/pdf/1608.06993.pdf) (Dense Convolutional Network) are comprised of dense blocks and transitional layers between each block. Each unit in a dense block is connected to every other unit before it and after it. Between these dense blocks a Transitional layer exists which downsamples the features passing through it.  
 
 ![image](https://github.com/mddown/Deep-Learning-proj1/blob/master/pics/denseNet_arch.JPG)
 
 This type of CNN architecture contains shorter connections between layers close to the input and close to the output. One important aspect is that DenseNet architectures are good at alleviating the vanashing gradient problem while also reducing the total number of parameters required compared to ResNets. This is accomplished by establishing direct connections from any layer to all subsequent layers - For each layer the feature maps of all preceding layers are used as inputs, and its own feature maps are used as inputs to all subsequent layers. This creates a high level of feature sharing between the layers.  
 
-DenseNEt161_Freeze is based on the DenseNet161 model (pre-trained on ImageNet) but has the first 2 dense blocks frozen. By freezing the first 2 dense blocks the training time is decreased while also ensuring that the model can still extract features from the images.
+**DenseNet161_Freeze:**
+DenseNEt161_Freeze is based on the DenseNet161 model (pre-trained on ImageNet) but has the first 2 dense blocks frozen. By freezing the first 2 dense blocks the training time is decreased while also ensuring that the model can still extract features from the images.  
+
+## ResNet18 vs. DenseNet161_Freeze
+
+The first experiment we ran was to compare the ResNet18 model to the DenseNet161_Freeze model. The results of this experiment led us to use the DenseNet161_Freeze model as our baseline model for future experiments as the DenseNet161_Freeze model was more accurate for all three scenarios.  
 
 ### Results below:
+
+# Accuracy refers to???
 
 **New Classes:**  
 
@@ -68,16 +71,17 @@ DenseNEt161_Freeze is based on the DenseNet161 model (pre-trained on ImageNet) b
 | ResNet18           | 89%      |
 | DenseNet161_Freeze | 94%      |
 
-
 ## Our Experiments
-Our experiments focused on playing with the number of replay examples that are randomly drawn from the memory. We wanted to see if increasing the replay size (concatinate with the current batch) would increase the models ability to not forget what it has learned previsouly.  
+Our experiments (using the DenseNet161_Freeze architecture) focused on playing with the number of replay examples that are randomly drawn from the memory. We wanted to see if increasing the replay size (concatinated with the current batch) would increase the models ability to not forget what it has learned previsouly.  
 
 We found that increasing the size of the replay samples did not have an effect on accurracy performance.
 
-## Scenario 1 - New Classes 
-The New Classes scenario did not use the replay memory methodology. A new independent model is assigned to each batch.  
-50 different classes are split into 9 batches. The label is provided during this scenario. Inference outweighs transfer when sharing 1 model across all batches. So instead a new fresh model is assigned to each batch.
+Results Below:  
 
+## Scenario 1 - Multi Task New Classes 
+In this setting the 50 different classes are split into 9 different tasks: 10 classes in the first batch and 5 classes in the other 8. In this case the task label will be provided during training and test.  
+
+The Multi Task New Classes scenario did not use the replay memory methodology. A new independent model is assigned to each batch. Inference outweighs transfer when sharing 1 model across all batches. So instead a new fresh model is assigned to each batch.
 
 | Architecture       | Accuracy |
 |--------------------|----------|
@@ -86,26 +90,24 @@ The New Classes scenario did not use the replay memory methodology. A new indepe
 <br/>
 
 ## Scenario 2 - New Instances  
-New instances are in each batch?
-In the New Instances scenario there are 8 trainig batches each containing the same 50 classes. No batch labels are provided. 
-
+In the New Instances scenario there are 8 training batches of the same 50 classes are encountered over time. Each training batch is composed of different images collected in different environmental conditions. No batch labels are provided. 
 
 | Architecture       | Replay Samples | Accuracy |
 |--------------------|-------------|----------|
 | DenseNet161_Freeze | 5,000        | 94%      |
 | DenseNet161_Freeze | 7,500       | 88%      |
-| DenseNet161_Freeze | 1,000???           | 94%      |
+| DenseNet161_Freeze | 10,000           | 94%      |
 | DenseNet161_Freeze | 12,500    | 90%      |
 <br/>
 
 ## Scenario 3 - New Instances and Classes 
-391 training batches each containing 300 images of a single class.
+391 training batches containing 300 images of a single class. No task label will be provided and each batch may contain images of a class seen before as well as a completely new class.  
 
 | Architecture       | Replay Samples | Accuracy |
 |--------------------|-------------|----------|
 | DenseNet161_Freeze | 5,000        | 94%      |
 | DenseNet161_Freeze | 7,500        | 95%      |
-| DenseNet161_Freeze | 1,000???           | 94%      |
+| DenseNet161_Freeze | 10,000          | 94%      |
 | DenseNet161_Freeze | 12,500        | 94%      |
 
 <br/>
