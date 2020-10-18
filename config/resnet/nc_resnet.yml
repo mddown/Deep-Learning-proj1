@@ -1,0 +1,22 @@
+parameters:
+  scenario: multi-task-nc
+  sub_dir: resnet/multi-task-nc_center_224
+  cls: resnet18
+  method: multi_models
+  n_classes: 50
+  #Augmentation
+  aug: True
+  aug_type: center_224
+  #train
+  batch_size: 32
+  epochs: 1
+  optimizer: SGD
+  lr: 0.01
+  nesterov: True
+  momentum: 0.9
+  weight_decay: 0.0001
+  #misc
+  verbose: False
+  preload_data: False
+  use_cuda: True
+

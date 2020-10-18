@@ -51,7 +51,9 @@ DenseNEt161_Freeze is based on the DenseNet161 model (pre-trained on ImageNet) b
 
 The first experiment we ran was to compare the ResNet18 model to the DenseNet161_Freeze model. The results of this experiment led us to use the DenseNet161_Freeze model as our baseline model for future experiments as the DenseNet161_Freeze model was more accurate for all three scenarios.  
 
-### Results below:
+### Results below:  
+
+As a note, since the dataset was distributed as part of a competition we, were limted to testing on the validation set only. We invetigated and observed that the validation set was approximately one twentieth the size of the full test set, and given that the competition concluded in early 2020, contacted the event organizers in an attempt to obtain labeled test results for analysis. Also, the original competition was based on a composite score using a weighted sum of five metrics - accuracy on the test set, average accuracy on the test set, total training and test runtime, memory usage, and disk usage. We choose to focus on the accuracy metric.
 
 # Accuracy refers to Validation Acc???
 
@@ -85,7 +87,7 @@ Our experiments (using the DenseNet161_Freeze architecture) focused on playing w
 
 **We found that increasing the size of the replay samples did not have an effect on accurracy performance.**
 
-Results Below:  
+Results of playing with the number of replay samples below:  
 
 ## Scenario 1 - Multi Task New Classes 
 In this setting the 50 different classes are split into 9 different tasks: 10 classes in the first batch and 5 classes in the other 8. In this case the task label will be provided during training and test.  
