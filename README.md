@@ -53,36 +53,39 @@ The first experiment we ran was to compare the ResNet18 model to the DenseNet161
 
 ### Results below:  
 
-As a note, since the dataset was distributed as part of a competition we, were limted to testing on the validation set only. We invetigated and observed that the validation set was approximately one twentieth the size of the full test set, and given that the competition concluded in early 2020, contacted the event organizers in an attempt to obtain labeled test results for analysis. Also, the original competition was based on a composite score using a weighted sum of five metrics - accuracy on the test set, average accuracy on the test set, total training and test runtime, memory usage, and disk usage. We choose to focus on the accuracy metric.
+As a note, since the dataset was distributed as part of a competition we, were limted to testing on the validation set only. We invetigated and observed that the validation set was approximately one twentieth the size of the full test set, and given that the competition concluded in early 2020, contacted the event organizers in an attempt to obtain labeled test results for analysis. Also, the original competition was based on a composite score using a weighted sum of five metrics - accuracy on the test set, average accuracy on the test set, total training and test runtime, memory usage, and disk usage. **We choose to only focus on the validation dataset accuracy metric.**  
 
-# Accuracy refers to Validation Acc???
 
-**New Classes:**  
+**New Classes Scenario (NC):**  
 
-| Architecture       | Accuracy |
+| Architecture       | VAl. Accuracy |
 |--------------------|----------|
 | ResNet18           | 95%      |
 | DenseNet161_Freeze | 99%      | 
 
 <br/>
 
-**New Instances:** 
+**New Instances Scenario (NI):** 
 
-| Architecture       | Accuracy |
+| Architecture       | Val. Accuracy |
 |--------------------|----------|
 | ResNet18           | 80%      |
 | DenseNet161_Freeze | 94%      | 
 
 <br/>
 
-**New Instances and Classes:**  
+**New Instances and Classes (NIC):**  
 
-| Architecture       | Accuracy |
+| Architecture       | Val. Accuracy |
 |--------------------|----------|
 | ResNet18           | 89%      |
 | DenseNet161_Freeze | 94%      |
 
+<br/>
+
 ## Our Experiments
+Detailed breakdown of the results can be found in the Jupyter Notebook.  
+<br/>
 Our experiments (using the DenseNet161_Freeze architecture) focused on playing with the number of replay examples that are randomly drawn from the memory. We wanted to see if increasing the replay size (concatinated with the current batch) would increase the models ability to not forget what it has learned previsouly.  
 
 **We found that increasing the size of the replay samples did not have an effect on accurracy performance.**
@@ -94,7 +97,7 @@ In this setting the 50 different classes are split into 9 different tasks: 10 cl
 
 The Multi Task New Classes scenario did not use the replay memory methodology. A new independent model is assigned to each batch. Inference outweighs transfer when sharing 1 model across all batches. So instead a new fresh model is assigned to each batch.
 
-| Architecture       | Accuracy |
+| Architecture       | Val. Accuracy |
 |--------------------|----------|
 | DenseNet161_Freeze | 99%      | 
 
@@ -103,7 +106,7 @@ The Multi Task New Classes scenario did not use the replay memory methodology. A
 ## Scenario 2 - New Instances  
 In the New Instances scenario there are 8 training batches of the same 50 classes are encountered over time. Each training batch is composed of different images collected in different environmental conditions. No batch labels are provided. 
 
-| Architecture       | Replay Samples | Accuracy |
+| Architecture       | Replay Samples | Val. Accuracy |
 |--------------------|-------------|----------|
 | DenseNet161_Freeze | 5,000        | 94%      |
 | DenseNet161_Freeze | 7,500       | 88%      |
@@ -114,18 +117,12 @@ In the New Instances scenario there are 8 training batches of the same 50 classe
 ## Scenario 3 - New Instances and Classes 
 391 training batches containing 300 images of a single class. No task label will be provided and each batch may contain images of a class seen before as well as a completely new class.  
 
-| Architecture       | Replay Samples | Accuracy |
+| Architecture       | Replay Samples | Val. Accuracy |
 |--------------------|-------------|----------|
 | DenseNet161_Freeze | 5,000        | 94%      |
 | DenseNet161_Freeze | 7,500        | 95%      |
 | DenseNet161_Freeze | 10,000          | 94%      |
 | DenseNet161_Freeze | 12,500        | 94%      |
-
-<br/>
-
-## Discussion
-Things to talk about:  
--  original competition (which our work is based on) looked at multiple metrics (accuracy, run duration, memory and disk use) but that we're only looking at accuracy.
 
 <br/>
 
@@ -148,24 +145,5 @@ conda env create -f environment.yml
 conda activate clvision-challenge
 ```
 
-### Project Structure
-This repository is structured as follows:
-
-- [`core50/`](core50): Root directory for the CORe50  benchmark, the main dataset of the challenge.
-- [`utils/`](core): Directory containing a few utility methods.
-- [`cl_ext_mem/`](cl_ext_mem): It will be generated after the repository setup (you need to store here eventual 
-memory replay patterns and other data needed during training by your CL algorithm)
-- [`submissions/`](submissions): It will be generated after the repository setup. It is where the submissions directory
-will be created.
-- [`fetch_data_and_setup.sh`](fetch_data_and_setup.sh): Basic bash script to download data and other utilities.
-- [`create_submission.sh`](create_submission.sh): Basic bash script to run the baseline and create the zip submission
-file.
-- [`naive_baseline.py`](naive_baseline.py): Basic script to run a naive algorithm on the tree challenge categories. 
-This script is based on PyTorch but you can use any framework you want. CORe50 utilities are framework independent.
-- [`environment.yml`](environment.yml): Basic conda environment to run the baselines.
-- [`Dockerfile`](Dockerfile), [`build_docker_image.sh`](build_docker_image.sh), [`create_submission_in_docker.sh`](create_submission_in_docker.sh): Essential Docker setup that can be used as a base for creating the final dockerized solution (see: [Dockerfile for Final Submission](#dockerfile-for-final-submission)).
-- [`LICENSE`](LICENSE): Standard Creative Commons Attribution 4.0 International License.
-- [`README.md`](README.md): This instructions file.
-
 ## How to run this in Colab section:
-The way all projects must be structured is that you publish all files in GitHub and then include in your Readme.md file instructions on how someone will run your code in colab. If you assume specific dir structure with respect to input data files etc. you spell it out in Readme.md. For those submitting python code in the form of notebooks, ensure that you commit the notebook with results in git before submitting the github url.
+Clone/upload repo to Google Colab env. Run Jupyter Notebook.
