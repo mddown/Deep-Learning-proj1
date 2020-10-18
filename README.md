@@ -7,7 +7,9 @@ Gene Eagle, John Kent and Matt Downing
 2. [Approach Used](#The-Approach-Used)
 3. [CNN Architecture Utilized](#CNN-Architecture-Utilized)
 4. [Our Experiments](#Our-Experiments)
-5. [How to Use this repo](#How-to-Use-this-repo)
+5. [Acknowledgement](#Acknowledgement)
+6. [How to Use this repo](#How-to-Use-this-repo)
+7. [How to run in Colab](#How-to-run-this-in-Colab)
 
 ## Introduction  
 ### What is Continual Learning?  
@@ -145,5 +147,5 @@ conda env create -f environment.yml
 conda activate clvision-challenge
 ```
 
-## How to run this in Colab section:
+## How to run this in Colab:  
 Clone/upload repo to Google Colab env. Run Jupyter Notebook.
