@@ -57,32 +57,6 @@ The first experiment we ran was to compare the ResNet18 model to the DenseNet161
 
 As a note, since the dataset was distributed as part of a competition we, were limted to testing on the validation set only. We invetigated and observed that the validation set was approximately one twentieth the size of the full test set, and given that the competition concluded in early 2020, contacted the event organizers in an attempt to obtain labeled test results for analysis. Also, the original competition was based on a composite score using a weighted sum of five metrics - accuracy on the test set, average accuracy on the test set, total training and test runtime, memory usage, and disk usage. **We choose to only focus on the validation dataset accuracy metric.**  
 
-
-**New Classes Scenario (NC):**  
-
-| Architecture       | VAl. Accuracy |
-|--------------------|----------|
-| ResNet18           | 95%      |
-| DenseNet161_Freeze | 99%      | 
-
-<br/>
-
-**New Instances Scenario (NI):** 
-
-| Architecture       | Val. Accuracy |
-|--------------------|----------|
-| ResNet18           | 80%      |
-| DenseNet161_Freeze | 94%      | 
-
-<br/>
-
-**New Instances and Classes (NIC):**  
-
-| Architecture       | Val. Accuracy |
-|--------------------|----------|
-| ResNet18           | 89%      |
-| DenseNet161_Freeze | 94%      |
-
 <br/>
 
 ## Our Experiments
@@ -99,32 +73,15 @@ In this setting the 50 different classes are split into 9 different tasks: 10 cl
 
 The Multi Task New Classes scenario did not use the replay memory methodology. A new independent model is assigned to each batch. Inference outweighs transfer when sharing 1 model across all batches. So instead a new fresh model is assigned to each batch.
 
-| Architecture       | Val. Accuracy |
-|--------------------|----------|
-| DenseNet161_Freeze | 99%      | 
-
 <br/>
 
 ## Scenario 2 - New Instances  
 In the New Instances scenario there are 8 training batches of the same 50 classes are encountered over time. Each training batch is composed of different images collected in different environmental conditions. No batch labels are provided. 
 
-| Architecture       | Replay Samples | Val. Accuracy |
-|--------------------|-------------|----------|
-| DenseNet161_Freeze | 5,000        | 94%      |
-| DenseNet161_Freeze | 7,500       | 88%      |
-| DenseNet161_Freeze | 10,000           | 94%      |
-| DenseNet161_Freeze | 12,500    | 90%      |
 <br/>
 
 ## Scenario 3 - New Instances and Classes 
 391 training batches containing 300 images of a single class. No task label will be provided and each batch may contain images of a class seen before as well as a completely new class.  
-
-| Architecture       | Replay Samples | Val. Accuracy |
-|--------------------|-------------|----------|
-| DenseNet161_Freeze | 5,000        | 94%      |
-| DenseNet161_Freeze | 7,500        | 95%      |
-| DenseNet161_Freeze | 10,000          | 94%      |
-| DenseNet161_Freeze | 12,500        | 94%      |
 
 <br/>
 
