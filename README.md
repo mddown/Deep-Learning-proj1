@@ -59,7 +59,7 @@ The first experiment we ran was to compare the ResNet18 model to the DenseNet161
 Detailed breakdown of the results can be found in the Jupyter Notebook.
 <br/>
 
-As a note, since the dataset was distributed as part of a competition we, were limted to testing on the validation set only. We invetigated and observed that the validation set was approximately one twentieth the size of the full test set, and given that the competition concluded in early 2020, contacted the event organizers in an attempt to obtain labeled test results for analysis. Also, the original competition was based on a composite score using a weighted sum of five metrics - accuracy on the test set, average accuracy on the test set, total training and test runtime, memory usage, and disk usage. **We choose to only focus on the validation dataset accuracy metric.** 
+As a note, since the dataset was distributed as part of a competition we, were limted to testing on the validation set only. We investigated and observed that the validation set was approximately one twentieth the size of the full test set, and given that the competition concluded in early 2020, contacted the event organizers in an attempt to obtain labeled test results for analysis. Also, the original competition was based on a composite score using a weighted sum of five metrics - accuracy on the test set, average accuracy on the test set, total training and test runtime, memory usage, and disk usage. **We choose to only focus on the validation dataset accuracy metric.** 
 
 <br/>
 
