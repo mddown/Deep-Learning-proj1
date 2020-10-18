@@ -148,4 +148,4 @@ conda activate clvision-challenge
 ```
 
 ## How to run this in Colab:  
-Clone/upload repo to Google Colab env. Run Jupyter Notebook.
+Clone/upload repo to Google Colab env. Run Jupyter Notebook - CS677-CL-project.ipynb.
