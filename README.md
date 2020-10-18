@@ -51,17 +51,18 @@ DenseNEt161_Freeze is based on the DenseNet161 model (pre-trained on ImageNet) b
 
 ## ResNet18 vs DenseNet161_Freeze
 
-The first experiment we ran was to compare the ResNet18 model to the DenseNet161_Freeze model. The results of this experiment led us to use the DenseNet161_Freeze model as our baseline model for future experiments as the DenseNet161_Freeze model was more accurate for all three scenarios.  
-
-### Results below:  
-
-As a note, since the dataset was distributed as part of a competition we, were limted to testing on the validation set only. We invetigated and observed that the validation set was approximately one twentieth the size of the full test set, and given that the competition concluded in early 2020, contacted the event organizers in an attempt to obtain labeled test results for analysis. Also, the original competition was based on a composite score using a weighted sum of five metrics - accuracy on the test set, average accuracy on the test set, total training and test runtime, memory usage, and disk usage. **We choose to only focus on the validation dataset accuracy metric.**  
+The first experiment we ran was to compare the ResNet18 model to the DenseNet161_Freeze model. The results of this experiment led us to use the DenseNet161_Freeze model as our baseline model for future experiments as the DenseNet161_Freeze model was more accurate for all three scenarios.    
 
 <br/>
 
 ## Our Experiments
-Detailed breakdown of the results can be found in the Jupyter Notebook.  
+Detailed breakdown of the results can be found in the Jupyter Notebook.
 <br/>
+
+As a note, since the dataset was distributed as part of a competition we, were limted to testing on the validation set only. We invetigated and observed that the validation set was approximately one twentieth the size of the full test set, and given that the competition concluded in early 2020, contacted the event organizers in an attempt to obtain labeled test results for analysis. Also, the original competition was based on a composite score using a weighted sum of five metrics - accuracy on the test set, average accuracy on the test set, total training and test runtime, memory usage, and disk usage. **We choose to only focus on the validation dataset accuracy metric.** 
+
+<br/>
+
 Our experiments (using the DenseNet161_Freeze architecture) focused on playing with the number of replay examples that are randomly drawn from the memory. We wanted to see if increasing the replay size (concatinated with the current batch) would increase the models ability to not forget what it has learned previsouly.  
 
 **We found that increasing the size of the replay samples did not have an effect on accurracy performance.**
